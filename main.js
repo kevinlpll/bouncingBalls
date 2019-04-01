@@ -26,6 +26,7 @@ class Shape{
 
 
 class Ball extends Shape{
+  // BUG: Sometimes, a ball can apper outside of screen(WHY?)
   constructor(x,y,velX,velY,exists,color,size){
     super(x,y,velX,velY,exists);
     this.color = color;
@@ -68,7 +69,6 @@ class Ball extends Shape{
       this.x += this.velX;
       this.y += this.velY;
     }
-
   }
 
 class EvilCircle extends Shape{
@@ -80,6 +80,19 @@ class EvilCircle extends Shape{
     this.size = 10;
   }
 
+  ballCount(){
+    var myPara1 = document.getElementById('p1');
+    var myPara2 = document.getElementById('p2');
+
+    var ballCount = 0;
+    for (var i = 0; i < balls.length; i++) {
+      if (balls[i].exists === true) {
+        ballCount += 1;
+      }
+    }
+    myPara1.textContent = 'Balls Count: ' + ballCount ;
+    myPara2.textContent = 'Balls eaten: ' + ((balls.length) - ballCount);
+  }
   draw(){
     ctx.lineWidth = 3;
     ctx.beginPath();
@@ -88,6 +101,8 @@ class EvilCircle extends Shape{
     ctx.stroke();
   }
   checkBounds(){
+
+    // BUG: Evilball can pass through botton border and right border
     if((this.x + this.size)>=width){
       this.x -= 10 - this.size;
     }
@@ -174,6 +189,7 @@ class EvilCircle extends Shape{
 
       }
     }
+    evilCircle1.ballCount();
     evilCircle1.draw();
     evilCircle1.checkBounds();
     evilCircle1.colisionDetect()
