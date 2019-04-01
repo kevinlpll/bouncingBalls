@@ -26,7 +26,6 @@ class Shape{
 
 
 class Ball extends Shape{
-  // BUG: Sometimes, a ball can apper outside of screen(WHY?)
   constructor(x,y,velX,velY,exists,color,size){
     super(x,y,velX,velY,exists);
     this.color = color;
@@ -59,11 +58,18 @@ class Ball extends Shape{
     //define ball update method
     update(){
       // BUG: Sometimes, A ball can be "jailed" inside a canvas border
-      if ((this.x + this.size)>=width || (this.x - this.size)<=0) {
-        this.velX *= -1;
+      if((this.x + this.size)>=(width-20)){
+        this.velX *= -1 ;
       }
-      if ((this.y + this.size)>=height || (this.y - this.size)<=0 ) {
-        this.velY *= -1;
+      if((this.x - this.size)<=0) {
+        this.velX *= -1 ;
+
+      }
+      if((this.y + this.size)>=(height-20)){
+        this.velY *= -1 ;
+      }
+      if((this.y - this.size)<=0) {
+        this.velY *= -1 ;
       }
 
       this.x += this.velX;
@@ -102,19 +108,18 @@ class EvilCircle extends Shape{
   }
   checkBounds(){
 
-    // BUG: Evilball can pass through botton border and right border
     if((this.x + this.size)>=width){
-      this.x -= 10 - this.size;
+      this.x -= (10 + this.size);
     }
     if((this.x - this.size)<=0) {
-      this.x += 10 + this.size;
+      this.x += (10 + this.size);
 
     }
     if((this.y + this.size)>=height){
-      this.y -= 10 - this.size;
+      this.y -= (10 + this.size);
     }
     if((this.y - this.size)<=0) {
-      this.y += 10 + this.size;
+      this.y += (10 + this.size);
     }
   }
   setControls(){
@@ -165,7 +170,7 @@ class EvilCircle extends Shape{
     ctx.fillStyle = 'rgba(0,0,0,0.25)';
     ctx.fillRect(0,0,width,height);
     // IDEA: Make a machanism that generate new balls for the darkBall's dinner
-    while(balls.length < 26 ) {
+    while(balls.length < 25 ) {
       var size = random(10,20);
       var ball = new Ball(
         //balls positions always drawn at least one ball width
