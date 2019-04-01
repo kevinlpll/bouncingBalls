@@ -88,11 +88,18 @@ class EvilCircle extends Shape{
     ctx.stroke();
   }
   checkBounds(){
-    if ((this.x + this.size)>=width || (this.x - this.size)<=0) {
-      this.velX *= -1;
+    if((this.x + this.size)>=width){
+      this.x -= 10 - this.size;
     }
-    if ((this.y + this.size)>=height || (this.y - this.size)<=0 ) {
-      this.velY *= -1;
+    if((this.x - this.size)<=0) {
+      this.x += 10 + this.size;
+
+    }
+    if((this.y + this.size)>=height){
+      this.y -= 10 - this.size;
+    }
+    if((this.y - this.size)<=0) {
+      this.y += 10 + this.size;
     }
   }
   setControls(){
@@ -100,10 +107,10 @@ class EvilCircle extends Shape{
     window.onkeydown = function(e){
       //Left arrow key
       if(e.keyCode === 65){
-        _this.x -= this.velX;
+        _this.x -= _this.velX;
         //Right arrow key
       }else if (e.keyCode === 68) {
-        _this.x += this.velX;
+        _this.x += _this.velX;
         //up arrow key
       }else if (e.keyCode === 87){
         _this.y -= _this.velY;
@@ -122,8 +129,6 @@ class EvilCircle extends Shape{
         if (distance < this.size + balls[i].size) {
           balls[i].exists = false;
           balls.splice(i) ;
-
-
         }
       }
     }
@@ -145,7 +150,8 @@ class EvilCircle extends Shape{
   function loop(){
     ctx.fillStyle = 'rgba(0,0,0,0.25)';
     ctx.fillRect(0,0,width,height);
-
+    //// FIXME: This generate an array in every single colision of EvilCircle
+    ///
     while(balls.length < 26 ) {
       var size = random(10,20);
       var ball = new Ball(
