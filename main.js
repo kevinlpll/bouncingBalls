@@ -41,7 +41,7 @@ class Ball extends Shape{
     }
     colisionDetect(){
       for (var i = 0; i < balls.length; i++) {
-        if (!(this===balls[i])) {
+        if (!(this===balls[i]) && (balls[i].exists === true)) {
           var dx = this.x - balls[i].x;
           var dy = this.y - balls[i].y;
           var distance = Math.sqrt(dx * dx + dy * dy);
@@ -128,7 +128,6 @@ class EvilCircle extends Shape{
         var distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < this.size + balls[i].size) {
           balls[i].exists = false;
-          balls[i].size = balls[i].x = balls[i].y = 0;
         }
       }
     }
@@ -168,9 +167,12 @@ class EvilCircle extends Shape{
     }
 
     for (var i = 0; i < balls.length; i++) {
-      balls[i].draw();
-      balls[i].update();
-      balls[i].colisionDetect();
+      if (balls[i].exists === true) {
+        balls[i].draw();
+        balls[i].update();
+        balls[i].colisionDetect();
+
+      }
     }
     evilCircle1.draw();
     evilCircle1.checkBounds();

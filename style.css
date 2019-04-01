@@ -1,7 +1,13 @@
 html, body {
   margin: 0;
 }
-
+p {
+  position: absolute;
+  margin: 0;
+  top: 35px;
+  right: 35px;
+  color: #aaa
+}
 html {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   height: 100%;
