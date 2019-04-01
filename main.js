@@ -33,6 +33,7 @@ class Ball extends Shape{
   }
   //define ball draw method
     draw(){
+
       ctx.beginPath();
       ctx.fillStyle = this.color;
       ctx.arc(this.x,this.y,this.size, 0,  2 * Math.PI);
@@ -88,10 +89,10 @@ class EvilCircle extends Shape{
   }
   checkBounds(){
     if ((this.x + this.size)>=width || (this.x - this.size)<=0) {
-      // this.velX *= -1;
+      this.velX *= -1;
     }
     if ((this.y + this.size)>=height || (this.y - this.size)<=0 ) {
-      // this.velY *= -1;
+      this.velY *= -1;
     }
   }
   setControls(){
@@ -120,12 +121,24 @@ class EvilCircle extends Shape{
         var distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < this.size + balls[i].size) {
           balls[i].exists = false;
+          balls.splice(i) ;
+
+
         }
       }
     }
   }
 }
+
+  var midX = Math.floor(width/2);
+  var midY = Math.floor(height/2);
+  var evilCircle1 = new EvilCircle(midX,midY,20,20,true);
+
+  evilCircle1.draw();
+  evilCircle1.setControls();
+
   var balls = [];
+
 
   //define loop that keep drawing the scene constantly
 
@@ -154,7 +167,9 @@ class EvilCircle extends Shape{
       balls[i].update();
       balls[i].colisionDetect();
     }
-
+    evilCircle1.draw();
+    evilCircle1.checkBounds();
+    evilCircle1.colisionDetect()
     requestAnimationFrame(loop);
   }
 
