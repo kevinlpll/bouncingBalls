@@ -57,7 +57,7 @@ class Ball extends Shape{
     }
     //define ball update method
     update(){
-
+      // BUG: Sometimes, A ball can be "jailed" inside a canvas border
       if ((this.x + this.size)>=width || (this.x - this.size)<=0) {
         this.velX *= -1;
       }
@@ -128,7 +128,7 @@ class EvilCircle extends Shape{
         var distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < this.size + balls[i].size) {
           balls[i].exists = false;
-          balls.splice(i) ;
+          balls[i].size = balls[i].x = balls[i].y = 0;
         }
       }
     }
@@ -150,8 +150,7 @@ class EvilCircle extends Shape{
   function loop(){
     ctx.fillStyle = 'rgba(0,0,0,0.25)';
     ctx.fillRect(0,0,width,height);
-    //// FIXME: This generate an array in every single colision of EvilCircle
-    ///
+    // IDEA: Make a machanism that generate new balls for the darkBall's dinner
     while(balls.length < 26 ) {
       var size = random(10,20);
       var ball = new Ball(
