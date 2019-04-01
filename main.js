@@ -47,17 +47,12 @@ class Ball extends Shape{
           var distance = Math.sqrt(dx * dx + dy * dy);
           if (distance < this.size + balls[i].size) {
             balls[i].color = this.color = `rgb(${random(0,255)},${random(0,255)},${random(0,255)})`;
-            balls[i].velX *= -1;
-            balls[i].velY *= -1;
-            this.velX *= -1;
-            this.velY *= -1;
           }
         }
       }
     }
     //define ball update method
     update(){
-      // BUG: Sometimes, A ball can be "jailed" inside a canvas border
       if((this.x + this.size)>=(width-20)){
         this.velX *= -1 ;
       }
@@ -169,7 +164,6 @@ class EvilCircle extends Shape{
   function loop(){
     ctx.fillStyle = 'rgba(0,0,0,0.25)';
     ctx.fillRect(0,0,width,height);
-    // IDEA: Make a machanism that generate new balls for the darkBall's dinner
     while(balls.length < 25 ) {
       var size = random(10,20);
       var ball = new Ball(
