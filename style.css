@@ -1,11 +1,24 @@
 html, body {
   margin: 0;
 }
-
-html {
+#p1 {
+  color: #aaa;
+  margin: 0;
+  position: absolute;
+  right: 35px;
+  top: 35px;
+}
+#p2 {
+  color: #aaa;
+  margin: 0;
+  position: absolute;
+  right: 35px;
+  top: 70px;
+}
+/* html {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   height: 100%;
-}
+} */
 
 body {
   height: inherit;

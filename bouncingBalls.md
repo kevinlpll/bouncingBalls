@@ -1,0 +1,2 @@
+- __BUG__ [main.js](main.js)
+- __IDEA__ [main.js](main.js)
